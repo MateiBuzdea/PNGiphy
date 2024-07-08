@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: pngiphy_web
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    expose:
+      - 5000
+    environment:
+      - PORT=5000
+      - FLAG=TFCCTF{flag_here}
+      - APP_HOST=pngiphy.tfc
+
+  nginx:
+    container_name: pngiphy_nginx
+    hostname: pngiphy.tfc
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    expose:
+      - 80
+    ports:
+      - 80:80
+    depends_on:
+      - web
